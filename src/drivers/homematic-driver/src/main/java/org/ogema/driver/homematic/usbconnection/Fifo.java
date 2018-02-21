@@ -90,5 +90,9 @@ public class Fifo<T> {
 		getptr = 0;
 		entries = new Object[size];
 	}
+	
+	public int getCount() {
+		return count;
+	}
 
 }
