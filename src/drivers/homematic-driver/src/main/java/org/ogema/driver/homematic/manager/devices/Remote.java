@@ -22,6 +22,7 @@ import org.ogema.driver.homematic.manager.DeviceAttribute;
 import org.ogema.driver.homematic.manager.RemoteDevice;
 import org.ogema.driver.homematic.manager.StatusMessage;
 import org.ogema.driver.homematic.manager.SubDevice;
+import org.ogema.driver.homematic.manager.ValueType;
 import org.ogema.driver.homematic.manager.messages.CmdMessage;
 
 public class Remote extends SubDevice {
@@ -36,7 +37,7 @@ public class Remote extends SubDevice {
 
 	@Override
 	protected void addMandatoryChannels() {
-		deviceAttributes.put((short) 0x0300, new DeviceAttribute((short) 0x0300, "batteryStatus", true, true));
+		deviceAttributes.put((short) 0x0300, new DeviceAttribute((short) 0x0300, "batteryStatus", true, true, ValueType.FLOAT));
 		// Get number of button channels
 		String[] channels = remoteDevice.getChannels();
 		for (String channel : channels) {
@@ -45,9 +46,9 @@ public class Remote extends SubDevice {
 			if (splitChannel[0].equals("Sw") || splitChannel[0].equals("Btn")) {
 				for (int i = 1; i <= numOfSwitches; i++) {
 					deviceAttributes.put((short) i, new DeviceAttribute((short) i, "shortPressedButton_" + i, true,
-							true));
+							true, ValueType.BOOLEAN));
 					deviceAttributes.put((short) (i + 0x100), new DeviceAttribute((short) (i + 0x100),
-							"longPressedButton_" + (i), true, true));
+							"longPressedButton_" + (i), true, true, ValueType.BOOLEAN));
 				}
 			}
 		}

@@ -21,6 +21,7 @@ import org.ogema.driver.homematic.manager.DeviceAttribute;
 import org.ogema.driver.homematic.manager.RemoteDevice;
 import org.ogema.driver.homematic.manager.StatusMessage;
 import org.ogema.driver.homematic.manager.SubDevice;
+import org.ogema.driver.homematic.manager.ValueType;
 import org.ogema.driver.homematic.manager.messages.CmdMessage;
 import org.ogema.driver.homematic.tools.Converter;
 
@@ -32,7 +33,7 @@ public class CO2Detector extends SubDevice {
 
 	@Override
 	protected void addMandatoryChannels() {
-		deviceAttributes.put((short) 0x0001, new DeviceAttribute((short) 0x0001, "Concentration", true, true));
+		deviceAttributes.put((short) 0x0001, new DeviceAttribute((short) 0x0001, "Concentration", true, true, ValueType.FLOAT));
 	}
 
 	@Override

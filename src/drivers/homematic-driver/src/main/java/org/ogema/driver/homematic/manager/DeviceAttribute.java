@@ -31,18 +31,20 @@ public class DeviceAttribute {
 	private final String attributeName;
 	private final String channelAddress;
 	private final boolean readOnly;
-	private Value value;
-	private long valueTimestamp;
+	protected final ValueType valueType;
+	protected Value value;
+	protected long valueTimestamp;
 	private final Logger logger = org.slf4j.LoggerFactory.getLogger("homematic-driver");
 	private AttributeChannel attributeChannel;
-	private boolean haslistener = false;
-	private Calendar calendar;
+	protected boolean haslistener = false;
+	protected Calendar calendar;
 
-	public DeviceAttribute(short identifier, String attributeName, boolean readOnly, boolean mandatory) {
+	public DeviceAttribute(short identifier, String attributeName, boolean readOnly, boolean mandatory, ValueType valueType) {
 		this.calendar = Calendar.getInstance();
 		this.identifier = identifier;
 		this.attributeName = attributeName;
 		this.readOnly = readOnly;
+		this.valueType = valueType;
 		channelAddress = generateChannelAddress();
 		logger.debug("Channel Address: " + channelAddress);
 	}
@@ -52,9 +54,9 @@ public class DeviceAttribute {
 	 * 
 	 * @return
 	 */
-	private String generateChannelAddress() {
+	public String generateChannelAddress() {
 		StringBuilder tempString = new StringBuilder();
-		tempString.append("Attribute:");
+		tempString.append("ATTRIBUTE:");
 		tempString.append(Integer.toHexString(identifier & 0xffff));
 		switch (tempString.length()) {
 		case 10:
@@ -119,4 +121,9 @@ public class DeviceAttribute {
 	public void unsupportedAttribute() {
 		throw new UnsupportedOperationException();
 	}
+	
+	public ValueType getValueType() {
+		return valueType;
+	}
+
 }

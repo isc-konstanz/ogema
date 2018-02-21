@@ -22,6 +22,7 @@ import org.ogema.driver.homematic.manager.DeviceAttribute;
 import org.ogema.driver.homematic.manager.RemoteDevice;
 import org.ogema.driver.homematic.manager.StatusMessage;
 import org.ogema.driver.homematic.manager.SubDevice;
+import org.ogema.driver.homematic.manager.ValueType;
 import org.ogema.driver.homematic.manager.messages.CmdMessage;
 import org.ogema.driver.homematic.tools.Converter;
 
@@ -38,8 +39,8 @@ public class ThreeStateSensor extends SubDevice {
 	@Override
 	protected void addMandatoryChannels() {
 		String statusName = isDoorWindowSensor ? "WindowStatus" : "HighWater";
-		deviceAttributes.put((short) 0x0001, new DeviceAttribute((short) 0x0001, statusName, true, true));
-		deviceAttributes.put((short) 0x0002, new DeviceAttribute((short) 0x0002, "BatteryStatus", true, true));
+		deviceAttributes.put((short) 0x0001, new DeviceAttribute((short) 0x0001, statusName, true, true, ValueType.STRING));
+		deviceAttributes.put((short) 0x0002, new DeviceAttribute((short) 0x0002, "BatteryStatus", true, true, ValueType.FLOAT));
 	}
 
 	@Override

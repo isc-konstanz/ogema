@@ -23,6 +23,7 @@ import org.ogema.driver.homematic.manager.DeviceCommand;
 import org.ogema.driver.homematic.manager.RemoteDevice;
 import org.ogema.driver.homematic.manager.StatusMessage;
 import org.ogema.driver.homematic.manager.SubDevice;
+import org.ogema.driver.homematic.manager.ValueType;
 import org.ogema.driver.homematic.manager.messages.CmdMessage;
 import org.ogema.driver.homematic.tools.Converter;
 
@@ -36,11 +37,11 @@ public class Thermostat extends SubDevice {
 
 	@Override
 	protected void addMandatoryChannels() {
-		deviceCommands.put((byte) 0x01, new DeviceCommand(this, (byte) 0x01, "desiredTemp", true));
-		deviceAttributes.put((short) 0x0001, new DeviceAttribute((short) 0x0001, "desiredTemp", true, true));
-		deviceAttributes.put((short) 0x0002, new DeviceAttribute((short) 0x0002, "currentTemp", true, true));
-		deviceAttributes.put((short) 0x0003, new DeviceAttribute((short) 0x0003, "ValvePosition", true, true));
-		deviceAttributes.put((short) 0x0004, new DeviceAttribute((short) 0x0004, "batteryStatus", true, true));
+		deviceCommands.put((byte) 0x01, new DeviceCommand(this, (byte) 0x01, "desiredTemp", true, ValueType.FLOAT));
+		deviceAttributes.put((short) 0x0001, new DeviceAttribute((short) 0x0001, "desiredTemp", true, true, ValueType.FLOAT));
+		deviceAttributes.put((short) 0x0002, new DeviceAttribute((short) 0x0002, "currentTemp", true, true, ValueType.FLOAT));
+		deviceAttributes.put((short) 0x0003, new DeviceAttribute((short) 0x0003, "ValvePosition", true, true, ValueType.FLOAT));
+		deviceAttributes.put((short) 0x0004, new DeviceAttribute((short) 0x0004, "batteryStatus", true, true, ValueType.FLOAT));
 	}
 
 	public void parseMessage(StatusMessage msg, CmdMessage cmd) {

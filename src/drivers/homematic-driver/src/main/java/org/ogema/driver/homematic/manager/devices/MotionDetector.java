@@ -23,6 +23,7 @@ import org.ogema.driver.homematic.manager.DeviceAttribute;
 import org.ogema.driver.homematic.manager.RemoteDevice;
 import org.ogema.driver.homematic.manager.StatusMessage;
 import org.ogema.driver.homematic.manager.SubDevice;
+import org.ogema.driver.homematic.manager.ValueType;
 import org.ogema.driver.homematic.manager.messages.CmdMessage;
 import org.ogema.driver.homematic.tools.Converter;
 
@@ -39,9 +40,9 @@ public class MotionDetector extends SubDevice {
 
 	@Override
 	protected void addMandatoryChannels() {
-		deviceAttributes.put((short) 0x0001, new DeviceAttribute((short) 0x0001, "motion", true, true));
-		deviceAttributes.put((short) 0x0002, new DeviceAttribute((short) 0x0002, "brightness", true, true));
-		deviceAttributes.put((short) 0x0003, new DeviceAttribute((short) 0x0003, "batteryStatus", true, true));
+		deviceAttributes.put((short) 0x0001, new DeviceAttribute((short) 0x0001, "motion", true, true, ValueType.BOOLEAN));
+		deviceAttributes.put((short) 0x0002, new DeviceAttribute((short) 0x0002, "brightness", true, true, ValueType.FLOAT));
+		deviceAttributes.put((short) 0x0003, new DeviceAttribute((short) 0x0003, "batteryStatus", true, true, ValueType.FLOAT));
 	}
 
 	@Override

@@ -23,6 +23,7 @@ import org.ogema.driver.homematic.manager.DeviceCommand;
 import org.ogema.driver.homematic.manager.RemoteDevice;
 import org.ogema.driver.homematic.manager.StatusMessage;
 import org.ogema.driver.homematic.manager.SubDevice;
+import org.ogema.driver.homematic.manager.ValueType;
 import org.ogema.driver.homematic.manager.messages.CmdMessage;
 import org.ogema.driver.homematic.tools.Converter;
 
@@ -38,8 +39,8 @@ public class SwitchPlug extends SubDevice {
 
 	@Override
 	protected void addMandatoryChannels() {
-		deviceCommands.put((byte) 0x01, new DeviceCommand(this, (byte) 0x01, "onOff", true));
-		deviceAttributes.put((short) 0x0001, new DeviceAttribute((short) 0x0001, "isOn", true, true));
+		deviceCommands.put((byte) 0x01, new DeviceCommand(this, (byte) 0x01, "onOff", true, ValueType.BOOLEAN));
+		deviceAttributes.put((short) 0x0001, new DeviceAttribute((short) 0x0001, "isOn", true, true, ValueType.BOOLEAN));
 		//deviceAttributes.put((short) 0x0002, new DeviceAttribute((short) 0x0002, "iRes", true, true));
 		//deviceAttributes.put((short) 0x0003, new DeviceAttribute((short) 0x0003, "vRes", true, true));
 		//deviceAttributes.put((short) 0x0004, new DeviceAttribute((short) 0x0004, "pRes", true, true));

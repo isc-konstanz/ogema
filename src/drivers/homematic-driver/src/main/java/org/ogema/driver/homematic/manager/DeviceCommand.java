@@ -28,12 +28,14 @@ public class DeviceCommand {
 	private final String channelAddress;
 	private final String description;
 	private final boolean mandatory;
+	protected final ValueType valueType;
 	protected SubDevice subDevice;
 
-	public DeviceCommand(SubDevice subDevice, byte commandIdentifier, String description, boolean mandatory) {
+	public DeviceCommand(SubDevice subDevice, byte commandIdentifier, String description, boolean mandatory, ValueType valueType) {
 		this.identifier = commandIdentifier;
 		this.description = description;
 		this.mandatory = mandatory;
+		this.valueType = valueType;
 		this.subDevice = subDevice;
 		channelAddress = generateChannelAddress();
 	}
@@ -43,9 +45,9 @@ public class DeviceCommand {
 	 * 
 	 * @return
 	 */
-	private String generateChannelAddress() {
+	public String generateChannelAddress() {
 		StringBuilder tempString = new StringBuilder();
-		tempString.append("Command:");
+		tempString.append("COMMAND:");
 		tempString.append(Integer.toHexString(identifier & 0xff));
 		switch (tempString.length()) {
 		case 8:
@@ -76,6 +78,10 @@ public class DeviceCommand {
 
 	public void channelChanged(Value value) {
 		this.subDevice.channelChanged(identifier, value);
+	}
+	
+	public ValueType getValueType() {
+		return valueType;
 	}
 
 }
