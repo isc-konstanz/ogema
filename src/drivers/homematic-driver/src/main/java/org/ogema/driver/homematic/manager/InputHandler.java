@@ -30,14 +30,14 @@ import org.slf4j.Logger;
  */
 public class InputHandler implements Runnable {
 
-	private volatile boolean running;
-	private volatile Object inputEventLock;
-	private MessageHandler messageHandler;
-	private LocalDevice localDevice;
-	private StatusMessage lastMsg = new StatusMessage();
+	protected volatile boolean running;
+	protected volatile Object inputEventLock;
+	protected MessageHandler messageHandler;
+	protected LocalDevice localDevice;
+	protected StatusMessage lastMsg = new StatusMessage();
 
 	private final Logger logger = org.slf4j.LoggerFactory.getLogger("homematic-driver");
-	private boolean localDeviceInited;
+	protected boolean localDeviceInited;
 
 	public InputHandler(LocalDevice localDevice) {
 		inputEventLock = localDevice.getInputEventLock();
@@ -47,9 +47,7 @@ public class InputHandler implements Runnable {
 	}
 
 	/**
-	 * 
-	 * @param running
-	 *            Stops the loop in run().
+	 *   Stops the loop in run().
 	 */
 	public void stop() {
 		this.running = false;
@@ -81,7 +79,7 @@ public class InputHandler implements Runnable {
 		}
 	}
 
-	private void handleMessage(byte[] tempArray) {
+	protected void handleMessage(byte[] tempArray) {
 		logger.debug("message tpye: " + (char) tempArray[0]);
 		switch (tempArray[0]) {
 		case 'H':

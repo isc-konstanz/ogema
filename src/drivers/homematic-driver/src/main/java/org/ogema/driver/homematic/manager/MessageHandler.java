@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.ogema.driver.homematic.Activator;
@@ -36,13 +35,13 @@ import org.slf4j.Logger;
  * 
  */
 public class MessageHandler {
-	private LocalDevice localDevice;
+	protected LocalDevice localDevice;
 	public long MIN_WAITING_TIME = 500;
 	private volatile List<Integer> sentMessageAwaitingResponse = new ArrayList<Integer>(); // <Token>
-	private volatile Map<String, SendThread> runningThreads = new ConcurrentHashMap<String, SendThread>(); // <Deviceaddress,
+	protected volatile Map<String, SendThread> runningThreads = new ConcurrentHashMap<String, SendThread>(); // <Deviceaddress,
 	// Thread>
-	HashMap<String, CmdMessage> sentCommands = new HashMap<String, CmdMessage>();
-	private final Logger logger = org.slf4j.LoggerFactory.getLogger("homematic-driver");
+	protected HashMap<String, CmdMessage> sentCommands = new HashMap<String, CmdMessage>();
+	protected final Logger logger = org.slf4j.LoggerFactory.getLogger("homematic-driver");
 
 	public MessageHandler(LocalDevice device) {
 		this.localDevice = device;
@@ -88,12 +87,12 @@ public class MessageHandler {
 
 	public class SendThread extends Thread {
 
-		private static final int HM_SENT_RETRIES = 4;
-		private String dest;
-		private int tries;
-		private volatile int errorCounter = 0;
+		protected static final int HM_SENT_RETRIES = 4;
+		protected String dest;
+		protected int tries;
+		protected volatile int errorCounter = 0;
 
-		private volatile Fifo<Message> unsentMessageQueue; // Messages waiting to be sent
+		protected volatile Fifo<Message> unsentMessageQueue; // Messages waiting to be sent
 
 		public SendThread(String dest) {
 			this.dest = dest;
