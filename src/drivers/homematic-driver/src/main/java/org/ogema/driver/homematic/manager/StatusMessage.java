@@ -22,7 +22,7 @@ import org.ogema.driver.homematic.tools.Converter;
 public class StatusMessage {
 
 	public byte type = 0;
-	Integer rtoken;
+	public Integer rtoken;
 	public String source;
 	public String destination;
 	public byte status = 0;
@@ -45,16 +45,16 @@ public class StatusMessage {
 	public byte[] msg_all = null;
 
 	public boolean partyMode = false;
-	private boolean isEmpty = false;
-
-	StatusMessage() {
+	protected boolean isEmpty = false;
+	
+	public StatusMessage() {
 		isEmpty = true;
 	}
 
 	// E-Message: [0x45 SourceAddr(1.-3.) Cond(4.) Status(5.) Uptime(6.-9.) AES-Key(10.) RSSI(11.-12.) lenght(13.)
 	// MsgNumber(14.) Flag(15.) MsgType(16.) SourceAddr(17.-19.) DestinationAddr(20.-22.) Data(23.-(len+13).)
 
-	StatusMessage(byte[] data) {
+	public StatusMessage(byte[] data) {
 
 		type = data[0];
 		int i_type = (type == 'E') ? 0 : 1;
