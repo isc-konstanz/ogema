@@ -22,14 +22,13 @@ import org.ogema.driver.homematic.Activator;
 import org.ogema.driver.homematic.manager.messages.CmdMessage;
 import org.ogema.driver.homematic.tools.DeviceDescriptor;
 import org.ogema.driver.homematic.usbconnection.IUsbConnection;
-import org.ogema.driver.homematic.usbconnection.UsbConnection;
 
 public class LocalDevice {
-	private final Map<String, RemoteDevice> devices;
-	private IUsbConnection connection;
-	private InputHandler inputHandler;
-	private Thread inputHandlerThread;
-	private MessageHandler messageHandler;
+	protected final Map<String, RemoteDevice> devices;
+	protected IUsbConnection connection;
+	protected InputHandler inputHandler;
+	protected Thread inputHandlerThread;
+	protected MessageHandler messageHandler;
 	private FileStorage fileStorage;
 	private final DeviceDescriptor deviceDescriptor;
 
@@ -40,13 +39,16 @@ public class LocalDevice {
 	private String serial = "0000000000";
 	private String firmware = "0.0";
 	private int uptime = 0;
-	private volatile boolean isReady = false;
-
-	public LocalDevice(String port, UsbConnection con) {
+	protected volatile boolean isReady = false;	
+	
+	public LocalDevice(String port, IUsbConnection con) {
 		connection = con;
 		devices = new ConcurrentHashMap<String, RemoteDevice>();
 		deviceDescriptor = new DeviceDescriptor();
+		initialize();
+	}
 
+	protected void initialize() {
 		messageHandler = new MessageHandler(this);
 
 		inputHandler = new InputHandler(this);
@@ -71,7 +73,7 @@ public class LocalDevice {
 		loadDevicesThread.setName("homematic-ll-loadDevices");
 		loadDevicesThread.start();
 	}
-
+	
 	public void closeUsbConnection() {
 		connection.closeConnection();
 	}
