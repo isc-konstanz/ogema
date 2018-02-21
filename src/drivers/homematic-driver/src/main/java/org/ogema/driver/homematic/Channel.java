@@ -29,7 +29,7 @@ import org.ogema.core.channelmanager.measurements.Value;
  * @author puschas,baerthbn
  * 
  */
-abstract class Channel {
+public abstract class Channel {
 	protected ChannelLocator locator;
 
 	protected Channel(ChannelLocator locator) {
