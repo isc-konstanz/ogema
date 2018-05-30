@@ -82,13 +82,13 @@ public final class AttributeChannel extends Channel {
 		if (multipleAttributes) {
 			for (DeviceAttribute deviceAttribute : deviceAttributes) { // Retrieve the values from all attributes
 				sampledValueMap.put(deviceAttribute.getIdentifier(), new SampledValue(deviceAttribute.getValue(),
-						System.currentTimeMillis(), Quality.GOOD));
+						deviceAttribute.getValueTimestamp(), Quality.GOOD));
 			}
 			Value value = new ObjectValue(sampledValueMap);
-			return new SampledValue(value, System.currentTimeMillis(), Quality.GOOD); // TODO use average for Quality?
+			return new SampledValue(value, deviceAttribute.getValueTimestamp(), Quality.GOOD); // TODO use average for Quality?
 		}
 		else {
-			return new SampledValue(deviceAttribute.getValue(), System.currentTimeMillis(), Quality.GOOD);
+			return new SampledValue(deviceAttribute.getValue(), deviceAttribute.getValueTimestamp(), Quality.GOOD);
 		}
 	}
 
@@ -145,8 +145,8 @@ public final class AttributeChannel extends Channel {
 			throw new UnsupportedOperationException(); // TODO implement this method
 		}
 		else {
-			sampledValueContainer.setSampledValue(new SampledValue(deviceAttribute.getValue(), System
-					.currentTimeMillis(), Quality.GOOD));
+			sampledValueContainer.setSampledValue(new SampledValue(deviceAttribute.getValue(), 
+					deviceAttribute.getValueTimestamp(), Quality.GOOD));
 			channelEventListener.channelsUpdated(sampledValueContainerList);
 		}
 	}
