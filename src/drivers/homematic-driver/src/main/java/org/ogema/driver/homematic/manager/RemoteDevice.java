@@ -51,7 +51,7 @@ public class RemoteDevice {
 	}
 
 	private final String address;
-	private final String type;
+	protected final String type;
 	private final String serial;
 	private final String name;
 
@@ -64,7 +64,7 @@ public class RemoteDevice {
 
 	// States
 	private InitStates initState = InitStates.UNKNOWN;
-	private LocalDevice localdevice;
+	protected LocalDevice localdevice;
 
 	// Used from inputhandler for new devices
 	public RemoteDevice(LocalDevice localdevice, StatusMessage msg) {
@@ -108,7 +108,7 @@ public class RemoteDevice {
 		this.subDevice.addMandatoryChannels();
 	}
 
-	private SubDevice createSubDevice() {
+	protected SubDevice createSubDevice() {
 		String s = localdevice.getDeviceDescriptor().getSubType(type);
 		switch (s) {
 		case "THSensor":
